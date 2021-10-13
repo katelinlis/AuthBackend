@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"time"
+	"os/signal"
 
 	"github.com/BurntSushi/toml"
 	"github.com/katelinlis/AuthBackend/internal/app/apiserver"
@@ -36,15 +36,7 @@ func main() {
 
 	go apiserver.Start(config)
 
-	var input string
-
-	for {
-		time.Sleep(2 * time.Second)
-		fmt.Scanln(&input)
-		if input == "c" {
-			break
-		}
-	}
-
-	//fmt.Println("Hello world")
+	stop := make(chan os.Signal, 1)
+	signal.Notify(stop, os.Interrupt)
+	<-stop
 }
