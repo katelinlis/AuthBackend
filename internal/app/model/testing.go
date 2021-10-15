@@ -12,3 +12,12 @@ func TestJWT(t *testing.T) *JWT {
 		UserID:      1,
 	}
 }
+
+//TestGenerateEncrypted ...
+func TestGenerateEncrypted(t *testing.T) *Auth {
+
+	return &Auth{
+		Login:    "testuser",
+		Password: "testpass",
+	}
+}

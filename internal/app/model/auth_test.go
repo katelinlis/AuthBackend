@@ -18,3 +18,13 @@ func TestAuthJWT_Create(t *testing.T) {
 	err := jwt.Validate()
 	assert.NoError(t, err)
 }
+
+func TestAuthCreate(t *testing.T) {
+	auth := model.TestGenerateEncrypted(t)
+	err := auth.Validate()
+	assert.NoError(t, err)
+	err = auth.BeforeCreate()
+	assert.NoError(t, err)
+
+	assert.NotEmpty(t, auth.EncryptedPassword)
+}
